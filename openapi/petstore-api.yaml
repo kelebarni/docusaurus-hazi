@@ -8,6 +8,8 @@ servers:
 paths:
   /eszkozok:
     post:
+      tags:
+        - Műveletek
       summary: Új eszköz létrehozása
       description: Létrehoz egy új eszközt a nyilvántartásban.
       requestBody:
@@ -26,6 +28,8 @@ paths:
         '400':
           description: Hibás kérés
     get:
+      tags:
+        - Műveletek
       summary: Összes eszköz listázása
       description: Visszaadja az összes elérhető eszközt, opcionálisan szűrve.
       parameters:
@@ -55,6 +59,8 @@ paths:
                   $ref: '#/components/schemas/Eszkoz'
   /eszkozok/{eszkozId}:
     get:
+      tags:
+        - Műveletek
       summary: Eszköz lekérdezése
       description: Egy adott eszköz lekérdezése azonosító alapján.
       parameters:
