@@ -1,3 +1,6 @@
+// @ts-check
+
+/** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 const sidebars = {
   tutorialSidebar: [
     'tutorials/intro',
@@ -6,19 +9,19 @@ const sidebars = {
       type: 'category',
       label: 'Tutorial Basics',
       items: [
-        'tutorials/tutorial-basics/congratulations',
-        'tutorials/tutorial-basics/create-a-blog-post',
-        'tutorials/tutorial-basics/create-a-document',
-        'tutorials/tutorial-basics/deploy-your-site',
-        'tutorials/tutorial-basics/markdown-features',
+        'tutorial-basics/congratulations',
+        'tutorial-basics/create-a-blog-post',
+        'tutorial-basics/create-a-document',
+        'tutorial-basics/deploy-your-site',
+        'tutorial-basics/markdown-features',
       ],
     },
     {
       type: 'category',
       label: 'Tutorial Extras',
       items: [
-        'tutorials/tutorial-extras/manage-docs-versions',
-        'tutorials/tutorial-extras/translate-your-site',
+        'tutorial-extras/manage-docs-versions',
+        'tutorial-extras/translate-your-site',
       ],
     },
     {
@@ -32,6 +35,8 @@ const sidebars = {
       ],
     },
   ],
+
+  myApiSidebar: require('./docs/petstore/sidebar.ts'), // OpenAPI oldalsáv
 };
 
 export default sidebars;

@@ -1,0 +1,136 @@
+openapi: 3.0.3
+info:
+  title: Eszkoz Nyilvantarto API
+  version: 1.0.0
+  description: API egy egyszerű eszköznyilvántartó rendszerhez.
+servers:
+  - url: https://api.example.com
+paths:
+  /eszkozok:
+    post:
+      tags:
+        - Műveletek
+      summary: Új eszköz létrehozása
+      description: Létrehoz egy új eszközt a nyilvántartásban.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EszkozInput'
+      responses:
+        '201':
+          description: Sikeres létrehozás
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Eszkoz'
+        '400':
+          description: Hibás kérés
+    get:
+      tags:
+        - Műveletek
+      summary: Összes eszköz listázása
+      description: Visszaadja az összes elérhető eszközt, opcionálisan szűrve.
+      parameters:
+        - name: tipus
+          in: query
+          schema:
+            type: string
+          description: Szűrés eszköz típusára.
+        - name: gyarto
+          in: query
+          schema:
+            type: string
+          description: Szűrés gyártóra.
+        - name: raktaron
+          in: query
+          schema:
+            type: boolean
+          description: Csak a raktáron lévő (true) vagy nem raktáron lévő (false) eszközök.
+      responses:
+        '200':
+          description: Sikeres lekérdezés
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Eszkoz'
+  /eszkozok/{eszkozId}:
+    get:
+      tags:
+        - Műveletek
+      summary: Eszköz lekérdezése
+      description: Egy adott eszköz lekérdezése azonosító alapján.
+      parameters:
+        - name: eszkozId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Az eszköz UUID azonosítója.
+      responses:
+        '200':
+          description: Sikeres lekérdezés
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Eszkoz'
+        '404':
+          description: Nem található
+components:
+  schemas:
+    Eszkoz:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          example: uuid-1234-abcd-5678
+        nev:
+          type: string
+          example: Teszt termék
+        gyarto:
+          type: string
+          example: Appsters Kft.
+        tipus:
+          type: string
+          example: Okosotthon
+        ar:
+          type: number
+          format: float
+          example: 150.99
+        raktaron:
+          type: boolean
+          example: true
+        utolsoFrissites:
+          type: string
+          format: date-time
+          readOnly: true
+          example: 2025-04-27T20:00:00Z
+      required:
+        - nev
+        - gyarto
+        - tipus
+        - raktaron
+    EszkozInput:
+      type: object
+      properties:
+        nev:
+          type: string
+        gyarto:
+          type: string
+        tipus:
+          type: string
+        ar:
+          type: number
+          format: float
+        raktaron:
+          type: boolean
+      required:
+        - nev
+        - gyarto
+        - tipus
+        - raktaron
